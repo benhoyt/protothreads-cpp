@@ -121,7 +121,7 @@ protected:
 };
 
 // Declare start of protothread (use at start of Run() implementation).
-#define PT_BEGIN() bool ptYielded = true; switch (_ptLine) { case 0:
+#define PT_BEGIN() bool ptYielded = true; (void) ptYielded; switch (_ptLine) { case 0:
 
 // Stop protothread and end it (use at end of Run() implementation).
 #define PT_END() default: ; } Stop(); return false;
