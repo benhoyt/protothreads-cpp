@@ -6,7 +6,7 @@
 // Originally ported for use by Hamilton Jet (www.hamiltonjet.co.nz) by
 // Ben Hoyt, but stripped down for public release. See his blog entry about
 // it for more information:
-//     http://blog.micropledge.com/2008/07/protothreads/
+//     http://blog.brush.co.nz/2008/07/protothreads/
 //
 // Visual Studio users: There's a quirk with VS where it defines __LINE__
 // as a non-constant when you've got a project's Debug Information Format
