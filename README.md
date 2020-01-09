@@ -94,7 +94,7 @@ private:
 };
 ```
 
-`SuperThread` runs `t1` and waits for it to finish. Then it runs t2 and waits for it to finish. Then it runs t1 and t2 simultaneously.
+`SuperThread` runs `t1` and waits for it to finish. Then it runs `t2` and waits for it to finish. Then it runs `t1` and `t2` simultaneously.
 
 # Original Readme.md
 
