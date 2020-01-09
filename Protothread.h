@@ -63,16 +63,11 @@ public:
     // of its Run() function.
     Protothread() : _ptLine(0) { }
 
-<<<<<<< HEAD
 	// Add a virtual destructor to allow any inheritance cleanup
     virtual ~Protothread() {}
 
-	// Restart protothread.
-    void Restart() { _ptLine = 0; }
-=======
     // Restart protothread.
     void Restart() { _ptLine = 0; ActualRestart(); }
->>>>>>> virtual_restart
 
     // Stop the protothread from running. Happens automatically at PT_END.
     // Note: this differs from the Dunkels' original protothread behaviour
@@ -96,12 +91,8 @@ protected:
     // has finished. Implement this method in your Protothread subclass.
 	virtual bool ActualRun()=0;
 
-<<<<<<< HEAD
-=======
-protected:
 	virtual void ActualRestart() {};
 
->>>>>>> virtual_restart
     // Used to store a protothread's position (what Dunkels calls a
     // "local continuation").
     typedef unsigned short LineNumber;
