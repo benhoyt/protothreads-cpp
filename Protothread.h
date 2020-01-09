@@ -76,7 +76,7 @@ public:
 
     // Return true if the protothread is running or waiting, false if it has
     // ended or exited.
-    bool IsRunning() { return _ptLine != LineNumberInvalid; }
+    bool IsRunning() const { return _ptLine != LineNumberInvalid; }
 
 	// Check if thread has not finished yet
 	virtual bool Run() {
