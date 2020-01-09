@@ -76,7 +76,7 @@ public:
     bool IsRunning() { return _ptLine != LineNumberInvalid; }
 
 	// Check if thread has not finished yet
-	virtual bool Run() {
+ bool Run() {
 		if (IsRunning())
 			return ActualRun();
 		return false;
