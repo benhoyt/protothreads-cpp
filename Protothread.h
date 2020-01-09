@@ -63,7 +63,10 @@ public:
     // of its Run() function.
     Protothread() : _ptLine(0) { }
 
-    // Restart protothread.
+	// Add a virtual destructor to allow any inheritance cleanup
+    virtual ~Protothread() {}
+
+	// Restart protothread.
     void Restart() { _ptLine = 0; }
 
     // Stop the protothread from running. Happens automatically at PT_END.
