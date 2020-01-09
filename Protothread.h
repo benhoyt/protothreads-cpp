@@ -78,12 +78,19 @@ public:
     // ended or exited.
     bool IsRunning() { return _ptLine != LineNumberInvalid; }
 
+	// Check if thread has not finished yet
+	virtual bool Run() {
+		if (IsRunning())
+			return ActualRun();
+		return false;
+	}
+
+protected:
     // Run next part of protothread or return immediately if it's still
     // waiting. Return true if protothread is still running, false if it
     // has finished. Implement this method in your Protothread subclass.
-    virtual bool Run() = 0;
+	virtual bool ActualRun()=0;
 
-protected:
     // Used to store a protothread's position (what Dunkels calls a
     // "local continuation").
     typedef unsigned short LineNumber;
