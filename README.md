@@ -1,5 +1,15 @@
-Protothread.h, a C++ "port" of Adam Dunkels' protothreads library
-=================================================================
+# Some updates to Protothread.h, a C++ "port" of Adam Dunkels' protothreads library
+
+1. Virtual  destructor to override in child classes
+2. Changed `Run()` behavior to check if thread isn't finished and to call `virtual ActualRun()`
+3. Changed `Restart()` behaviour to call `virtual ActualRestart()` to be able to reset thread state variables in derived classes
+4. Made `volatile bool ptYielded` to get rid of unused variable error
+
+
+
+
+
+# Original Readme.md
 
 Adam Dunkels invented [protothreads](http://dunkels.com/adam/pt/), a nifty set
 of C macros for helping write super-light, stackless threads. What
