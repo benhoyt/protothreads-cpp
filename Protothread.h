@@ -64,7 +64,7 @@ public:
     Protothread() : _ptLine(0) { }
 
     // Restart protothread.
-    void Restart() { _ptLine = 0; }
+    void Restart() { _ptLine = 0; ActualRestart(); }
 
     // Stop the protothread from running. Happens automatically at PT_END.
     // Note: this differs from the Dunkels' original protothread behaviour
@@ -81,6 +81,8 @@ public:
     virtual bool Run() = 0;
 
 protected:
+	virtual void ActualRestart() {};
+
     // Used to store a protothread's position (what Dunkels calls a
     // "local continuation").
     typedef unsigned short LineNumber;
