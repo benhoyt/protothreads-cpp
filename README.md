@@ -1,5 +1,75 @@
-Protothread.h, a C++ "port" of Adam Dunkels' protothreads library
-=================================================================
+# Some updates to Protothread.h, a C++ "port" of Adam Dunkels' protothreads library
+
+1. Virtual  destructor to override in child classes
+2. Changed `Run()` behavior to check if thread isn't finished and to call `virtual ActualRun()`
+3. Changed `Restart()` behaviour to call `virtual ActualRestart()` to be able to reset thread state variables in derived classes
+4. Made `volatile bool ptYielded` to get rid of unused variable error
+
+## Example usage
+
+```
+class MyThread: public Protothread {
+public:
+	MyThread(const char* n, int steps): name(n), max(steps){};
+protected:
+	virtual bool ActualRun() {
+		std::cout << name << ": " << step << endl;
+		step++;
+		PT_BEGIN();
+		PT_WAIT_WHILE(step<max);
+		PT_END();
+	}
+	virtual void ActualRestart() {
+		step=0;
+	}
+private:
+	int step=0;
+	int max=0;
+	const char* name;
+};
+
+int main() {
+	int step=0;
+	MyThread t1 = MyThread("t1", 3);
+	for(int i=0;i<6;i++) {
+		std::cout<<"Main step: " << step << endl;
+		step++;
+		t1.Run();
+	}
+	t1.Restart();
+	for(int i=0;i<6;i++) {
+		std::cout<<"Main step: " << step << endl;
+		step++;
+		t1.Run();
+	}
+	return 0;
+}
+```
+Output
+```
+Main step: 0
+t1: 0
+Main step: 1
+t1: 1
+Main step: 2
+t1: 2
+Main step: 3
+Main step: 4
+Main step: 5
+Main step: 6
+t1: 0
+Main step: 7
+t1: 1
+Main step: 8
+t1: 2
+Main step: 9
+Main step: 10
+Main step: 11
+```
+
+Notice that `t1` stops running after step 2 but `t1.Run()` is called for 6 times. Then `t1` is restarted and starts counting from 0 again
+
+# Original Readme.md
 
 Adam Dunkels invented [protothreads](http://dunkels.com/adam/pt/), a nifty set
 of C macros for helping write super-light, stackless threads. What
