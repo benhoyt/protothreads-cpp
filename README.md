@@ -5,7 +5,7 @@
 3. Changed `Restart()` behaviour to call `virtual ActualRestart()` to be able to reset thread state variables in derived classes
 4. Made `volatile bool ptYielded` to get rid of unused variable error
 
-## Example usage
+## Example of thread restart
 
 ```
 class MyThread: public Protothread {
@@ -68,6 +68,33 @@ Main step: 11
 ```
 
 Notice that `t1` stops running after step 2 but `t1.Run()` is called for 6 times. Then `t1` is restarted and starts counting from 0 again
+
+## Example of nested threads
+
+```
+class SuperThread:public Protothread {
+public:
+protected:
+	bool ActualRun() {
+		PT_BEGIN();
+		PT_SPAWN(t1); // start t1 and wait for finish
+		PT_SPAWN(t2); // then start t2 and wait for finish
+		t1.Restart(); // restart both threads
+		t2.Restart();
+		PT_WAIT_WHILE(t1.Run() + t2.Run()); // start and run both t1 and t2 simultaneously
+		PT_END();
+	}
+	void ActualRestart() {
+		t1.Restart();
+		t2.Restart();
+	}
+private:
+	MyThread t1 = MyThread("t1", 3);
+	MyThread t2 = MyThread("t2", 5);
+};
+```
+
+`SuperThread` runs `t1` and waits for it to finish. Then it runs t2 and waits for it to finish. Then it runs t1 and t2 simultaneously.
 
 # Original Readme.md
 
