@@ -7,7 +7,7 @@
 
 ## Example of thread restart
 
-```
+```C++
 class MyThread: public Protothread {
 public:
 	MyThread(const char* n, int steps): name(n), max(steps){};
@@ -71,7 +71,7 @@ Notice that `t1` stops running after step 2 but `t1.Run()` is called for 6 times
 
 ## Example of nested threads
 
-```
+```C++
 class SuperThread:public Protothread {
 public:
 protected:
