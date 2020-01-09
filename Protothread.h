@@ -78,8 +78,8 @@ public:
     // ended or exited.
     bool IsRunning() const { return _ptLine != LineNumberInvalid; }
 
-	// Check if thread has not finished yet
-	virtual bool Run() {
+	// Check if thread has not finished yet. If thread is finished don't do anything
+	bool Run() {
 		if (IsRunning())
 			return ActualRun();
 		return false;
@@ -91,6 +91,7 @@ protected:
     // has finished. Implement this method in your Protothread subclass.
 	virtual bool ActualRun()=0;
 
+	// Override this in derived class to reset thread's local state variables
 	virtual void ActualRestart() {};
 
     // Used to store a protothread's position (what Dunkels calls a
