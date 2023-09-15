@@ -63,6 +63,9 @@ public:
     // of its Run() function.
     Protothread() : _ptLine(0) { }
 
+    // Virtual destructor in case subclass wants to delete via base pointer.
+    virtual ~Protothread() { }
+
     // Restart protothread.
     void Restart() { _ptLine = 0; }
 
